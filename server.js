@@ -1,4 +1,3 @@
-// Required Modules
 var express    = require("express");
 var morgan     = require("morgan");
 var bodyParser = require("body-parser");
@@ -8,9 +7,8 @@ var app        = express();
 
 var port = process.env.PORT || 3001;
 var User     = require('./models/User');
+mongoose.connect('mongodb://localhost/myapp');
 
-// Connect to DB
-mongoose.connect(process.env.MONGO_URL);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -67,7 +65,7 @@ app.post('/signin', function(req, res) {
                 userModel.email = req.body.email;
                 userModel.password = req.body.password;
                 userModel.save(function(err, user) {
-                    user.token = jwt.sign(user, process.env.JWT_SECRET);
+                    user.token = jwt.sign(user, "sssssss");
                     user.save(function(err, user1) {
                         res.json({
                             type: true,
